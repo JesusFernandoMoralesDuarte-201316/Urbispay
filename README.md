@@ -5,6 +5,10 @@ Proyecto de titulacion para obtener el grado de ingeniero en sistemas computacio
 Desarollado por: Jesus Fernando Morales Duarte 
 Matricula: 201316
 
+## Documentacion 
+
+[Diagrama Entidad Relacion](https://drive.google.com/file/d/10Kt_hqWPtGIT9QcX71UXB5dISg9Y0LSM/view?usp=sharing)
+
 ## Vamos a comenzar
 
 1. Instalar dependecias
