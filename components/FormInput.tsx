@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     icon: {
         position: 'absolute',
         right: 10,
-        top: 16,
+        top: Platform.OS === "ios" ? 3 : 15,
         width: 20, // Ajusta el tamaño de la imagen
         height: 20,
         marginRight: 10, // Espaciado entre la imagen y el input
