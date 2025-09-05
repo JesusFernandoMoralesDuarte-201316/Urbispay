@@ -141,7 +141,7 @@ export default function Index() {
 
       <View style={styles.containerSignUp}>
         <Text style={styles.textSignUp}>Do you have an account?</Text>
-        <LinkPages text='Login' type='Bold' link='../authScreen/Login' />
+        <LinkPages text='Login' type='Bold' link='../auth/Login' />
       </View>
 
     </>

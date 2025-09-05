@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         marginLeft: 40,
-        marginTop: 32,
     },
 
     buttonText: {

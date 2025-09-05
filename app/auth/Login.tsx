@@ -25,13 +25,13 @@ export default function Login() {
 
             {/* Formulario con Input Email y Password */}
             <View className="flex items-center mx-4 space-y-4">
-              <FormInput type="Email" label="Email" control={control} rules={{ required: 'El correo es obligatorio' }} error={errors.Email?.message} />
-              <FormInput type="Password" label="Password" control={control} rules={{ required: 'El Password es obligatorio' }} error={errors.Password?.message} />
-              <ButtonLarge text="Iniciar Sesion" onPress={handleSubmit(onSubmit)} />
+              <FormInput type="Email" label="Email" control={control} rules={{ required: 'El Email es requerido' }} error={errors.Email?.message} icon='email.png' />
+              <FormInput type="Password" label="Password" control={control} rules={{ required: 'El Password es requerido' }} error={errors.Password?.message} icon='password.png' />
+              <ButtonLarge text="Login" onPress={handleSubmit(onSubmit)} />
             </View>
 
-            {/* Remember me */}
-            <View style={styles.rememberContainer}>
+            {/* Forgot Password */}
+            <View style={styles.forgotContainer}>
               <LinkPages text="Forgot Password?" type="Bold" link="../signUp" />
             </View>
 
@@ -58,7 +58,7 @@ export default function Login() {
 
       <View style={styles.containerSignUp}>
         <Text style={styles.textSignUp}>Don't you have an account?</Text>
-        <LinkPages text="SignUp" type="Bold" link="../authScreen/signUp" />
+        <LinkPages text="SignUp" type="Bold" link="../auth/signUp" />
       </View>
     </>
   );
@@ -73,16 +73,17 @@ const styles = StyleSheet.create({
     marginLeft: 115,
     marginBottom: 40,
   },
-  rememberContainer: {
+  forgotContainer: {
     flexDirection: "row",
-    marginTop: 12,
+    marginTop: 23,
     justifyContent: "center",
   },
   containerOr: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 20,
+    marginTop: 23,
+    marginBottom: 17,
     textAlign: "center",
   },
   lineIzq: {
@@ -118,5 +119,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#fff",
     marginRight: 10,
+    fontFamily: 'InterMedium'
   },
 });

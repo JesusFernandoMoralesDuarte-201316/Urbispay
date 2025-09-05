@@ -2,9 +2,14 @@
 import { TextInput, View } from "react-native";
 
 // Metodos de React Native
-import { Platform, StyleSheet, Text } from "react-native";
+import { Image, Platform, StyleSheet, Text } from "react-native";
 
 import { Controller } from "react-hook-form";
+
+const imageMap: Record<string, any> = {
+    'email.png': require('../assets/images/email.png'),
+    'password.png': require('../assets/images/eye.png'),
+};
 
 //Definicion de props
 
@@ -19,11 +24,12 @@ interface CustomInputProps {
     rules?: object;
     label: keyof IFormValues;
     error?: string;
+    icon: string;
 }
 
-export default function FormInput({ type, label, control, rules, error }: CustomInputProps) {
+export default function FormInput({ type, label, control, rules, error, icon }: CustomInputProps) {
     return (
-        <View style={styles.Input}>
+        <View style={[styles.Input, error && styles.inputError]}>
             <Controller
                 control={control}
                 name={label}
@@ -41,6 +47,10 @@ export default function FormInput({ type, label, control, rules, error }: Custom
                 )}
             />
 
+            <Image
+                source={imageMap[icon]} // Selección de la imagen desde el mapeo
+                style={styles.icon}
+            />
             {error && <Text style={styles.errorText}>{error}</Text>}
         </View>
     );
@@ -52,18 +62,35 @@ const styles = StyleSheet.create({
         height: 45,
         backgroundColor: "#D9D9D9",
         borderRadius: 6,
-        paddingLeft: 12.5,
-        paddingVertical: Platform.OS === "ios" ? 12 : 3,
+        paddingLeft: 24,
+        paddingVertical: Platform.OS === "ios" ? 15 : 3,
         marginLeft: 32,
-        marginBottom: 20,
+        marginBottom: 25,
         fontSize: 15,
-        fontFamily: "Arial",
+        fontFamily: "InterRegular",
+        flexDirection: 'row',
+        position: 'relative'
     },
 
     errorText: {
-        color: "red",
+        position: 'absolute',
+        top: -20,
+        color: '#FE0000',
         fontSize: 12,
-        marginLeft: 32,
-        marginTop: 5,
+    },
+
+    inputError: {
+        borderWidth: 1,
+        borderColor: '#FE0000',
+        borderStyle: 'solid',
+    },
+
+    icon: {
+        position: 'absolute',
+        right: 10,
+        top: 16,
+        width: 20, // Ajusta el tamaño de la imagen
+        height: 20,
+        marginRight: 10, // Espaciado entre la imagen y el input
     },
 });
