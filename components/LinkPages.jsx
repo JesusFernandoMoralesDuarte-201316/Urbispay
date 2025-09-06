@@ -1,13 +1,8 @@
-import { RelativePathString, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-interface CustonLinkPagesProps {
-    text: string;
-    type?: string;
-    link: RelativePathString;
-}
 
-export default function LinkPages({ text, type = 'Medium', link }: CustonLinkPagesProps) {
+export default function LinkPages({ text, type = 'Medium', link }) {
     const router = useRouter();
 
     return (

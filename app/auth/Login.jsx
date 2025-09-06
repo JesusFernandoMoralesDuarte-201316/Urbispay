@@ -1,16 +1,16 @@
 import { Image, Platform, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import "../../global.css";
 
-import ButtonLarge from '@/components/ButtonLarge';
-import ButtonSocialNetwork from '@/components/ButtonSocialNetwork';
-import FormInput, { IFormValues } from '@/components/FormInput';
-import LinkPages from '@/components/LinkPages';
 import { useForm } from 'react-hook-form';
+import ButtonLarge from '../../components/ButtonLarge';
+import ButtonSocialNetwork from '../../components/ButtonSocialNetwork';
+import FormInput from '../../components/FormInput';
+import LinkPages from '../../components/LinkPages';
 
 export default function Login() {
-  const { control, handleSubmit, formState: { errors }, getValues } = useForm<IFormValues>();
+  const { control, handleSubmit, formState: { errors }, getValues } = useForm();
 
-  const onSubmit = (data: IFormValues) => {
+  const onSubmit = (data) => {
     console.log("Form data:", data);
   };
 

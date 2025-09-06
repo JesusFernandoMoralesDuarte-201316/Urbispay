@@ -1,17 +1,13 @@
 import { Image, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
-interface CustonButtonSocialNetwork {
-    text: string;
-    imageName: string;
-}
 
 // Mapeo de nombres de imágenes a rutas estáticas
-const imageMap: Record<string, any> = {
+const imageMap = {
     'google.png': require('../assets/images/google.png'),
     'facebook.png': require('../assets/images/facebook.png'),
 };
 
-export default function ButtonSocialNetwork({ text, imageName }: CustonButtonSocialNetwork) {
+export default function ButtonSocialNetwork({ text, imageName }) {
     return (
         <View>
             <Pressable style={styles.buttonSocial}>

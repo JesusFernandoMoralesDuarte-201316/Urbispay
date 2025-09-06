@@ -1,12 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
 
-interface StepProps {
-    number: number;
-    label: string;
-    isActive: boolean;
-    isCompleted: boolean;
-    showLine?: boolean;
-}
 
 // Componente del step individual
 export default function ProgressStep({
@@ -15,7 +8,7 @@ export default function ProgressStep({
     isActive,
     isCompleted,
     showLine = true,
-}: StepProps) {
+}) {
     return (
         <View style={{ flex: 1 }}>
             {/* Círculo y línea en fila */}

@@ -2,14 +2,14 @@ import { useRouter } from 'expo-router';
 import { Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import "../../global.css";
 
-import LinkPages from '@/components/LinkPages';
-import ProgressStep from '@/components/ProgressStep';
 import { useEffect, useState } from 'react';
+import LinkPages from '../../components/LinkPages';
+import ProgressStep from '../../components/ProgressStep';
 
 
 const steps = ["Personal", "Security", "OTP", "Done"];
 
-export default function Index() {
+export default function SignUp() {
 
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
@@ -28,7 +28,7 @@ export default function Index() {
   };
 
   const backScreen = () => {
-    router.push('../authScreen/Login')
+    router.push('../auth/Login')
 
   }
 
@@ -103,7 +103,7 @@ export default function Index() {
                 </View>
 
               </>
-            )}*/
+            )}
 
 
 

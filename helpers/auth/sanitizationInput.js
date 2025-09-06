@@ -1,7 +1,7 @@
-type AnyObject = { [key: string]: any };
 
-export function sanitizeObject(obj: AnyObject): AnyObject {
-    const sanitizedObj: AnyObject = {};
+
+export function sanitizeObject(obj) {
+    const sanitizedObj = {};
     console.log(obj);
 
 

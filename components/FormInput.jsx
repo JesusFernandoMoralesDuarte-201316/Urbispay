@@ -6,28 +6,13 @@ import { Image, Platform, StyleSheet, Text } from "react-native";
 
 import { Controller } from "react-hook-form";
 
-const imageMap: Record<string, any> = {
+const imageMap = {
     'email.png': require('../assets/images/email.png'),
     'password.png': require('../assets/images/eye.png'),
 };
 
-//Definicion de props
 
-export interface IFormValues {
-    Email: string;
-    Password: string;
-}
-
-interface CustomInputProps {
-    type: "Text" | "Email" | "Password" | "Number";
-    control: any;
-    rules?: object;
-    label: keyof IFormValues;
-    error?: string;
-    icon: string;
-}
-
-export default function FormInput({ type, label, control, rules, error, icon }: CustomInputProps) {
+export default function FormInput({ type, label, control, rules, error, icon }) {
     return (
         <View style={[styles.Input, error && styles.inputError]}>
             <Image

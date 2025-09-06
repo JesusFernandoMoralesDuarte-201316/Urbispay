@@ -1,12 +1,7 @@
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
-interface CustomButtonLargesProps {
-    text: string
-    onPress: () => void
-}
 
-
-export default function ButtonLarge({ text, onPress }: CustomButtonLargesProps) {
+export default function ButtonLarge({ text, onPress }) {
     return (
         <View>
             <Pressable

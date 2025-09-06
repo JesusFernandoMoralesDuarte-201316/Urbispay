@@ -6,9 +6,8 @@
 */
 
 
-type AnyObject = { [key: string]: any };
 
-export function isEmptyInput(obj: AnyObject): Boolean {
+export function isEmptyInput(obj) {
 
     for (const key in obj) {
         if (obj[key] === undefined || obj[key] === null || (typeof obj[key] === "string" && obj[key].trim() === "")) {

@@ -1,5 +1,5 @@
-import LinkPages from '@/components/LinkPages';
 import { SafeAreaView, View } from 'react-native';
+import LinkPages from '../components/LinkPages';
 
 
 export default function Index() {
@@ -7,6 +7,7 @@ export default function Index() {
         <View>
             <SafeAreaView style={{ marginVertical: 400, marginHorizontal: 175 }}>
                 <LinkPages text='Login' type='Bold' link='../auth/Login' />
+
             </SafeAreaView>
         </View>
     )
