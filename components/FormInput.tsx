@@ -30,6 +30,10 @@ interface CustomInputProps {
 export default function FormInput({ type, label, control, rules, error, icon }: CustomInputProps) {
     return (
         <View style={[styles.Input, error && styles.inputError]}>
+            <Image
+                source={imageMap[icon]}
+                style={styles.icon}
+            />
             <Controller
                 control={control}
                 name={label}
@@ -39,17 +43,16 @@ export default function FormInput({ type, label, control, rules, error, icon }: 
                         placeholder={label}
                         placeholderTextColor="#7A7777"
                         secureTextEntry={type === "Password"}
-                        keyboardType={type === "Number" ? (Platform.OS === "ios" ? "numeric" : "number-pad") : "default"}
+                        keyboardType={
+                            type === "Number" ? (Platform.OS === "ios" ? "numeric" : "number-pad") : "default"
+                        }
                         onChangeText={onChange}
                         onBlur={onBlur}
                         value={value}
+                        autoCapitalize="none"
+                        style={styles.textInput}
                     />
                 )}
-            />
-
-            <Image
-                source={imageMap[icon]} // Selección de la imagen desde el mapeo
-                style={styles.icon}
             />
             {error && <Text style={styles.errorText}>{error}</Text>}
         </View>
@@ -62,8 +65,10 @@ const styles = StyleSheet.create({
         height: 45,
         backgroundColor: "#D9D9D9",
         borderRadius: 6,
-        paddingLeft: 24,
-        paddingVertical: Platform.OS === "ios" ? 15 : 3,
+        paddingLeft: 50,
+        paddingRight: 5,
+        paddingTop: 3,
+        //paddingVertical: Platform.OS === "ios" ? 15 : 3,
         marginLeft: 32,
         marginBottom: 25,
         fontSize: 15,
@@ -87,10 +92,17 @@ const styles = StyleSheet.create({
 
     icon: {
         position: 'absolute',
-        right: 10,
-        top: Platform.OS === "ios" ? 3 : 15,
-        width: 20, // Ajusta el tamaño de la imagen
+        left: 10,
+        top: 13,
+        width: 20,
         height: 20,
-        marginRight: 10, // Espaciado entre la imagen y el input
+        marginRight: 10,
+    },
+
+    textInput: {
+        flex: 1,
+        fontSize: 15,
+        fontFamily: "InterRegular",
+        color: "#000",
     },
 });

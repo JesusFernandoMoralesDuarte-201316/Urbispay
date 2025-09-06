@@ -8,11 +8,13 @@ import LinkPages from '@/components/LinkPages';
 import { useForm } from 'react-hook-form';
 
 export default function Login() {
-  const { control, handleSubmit, formState: { errors } } = useForm<IFormValues>();
+  const { control, handleSubmit, formState: { errors }, getValues } = useForm<IFormValues>();
 
   const onSubmit = (data: IFormValues) => {
-    console.log(data);
+    console.log("Form data:", data);
   };
+
+  console.log("Current form values:", getValues());
 
   return (
     <>

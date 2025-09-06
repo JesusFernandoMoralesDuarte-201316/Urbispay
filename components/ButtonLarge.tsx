@@ -7,14 +7,19 @@ interface CustomButtonLargesProps {
 
 
 export default function ButtonLarge({ text, onPress }: CustomButtonLargesProps) {
-
     return (
         <View>
-            <Pressable style={styles.button} onPress={onPress}>
+            <Pressable
+                style={styles.button}
+                onPress={() => {
+                    console.log("Button pressed");
+                    onPress();
+                }}
+            >
                 <Text style={styles.buttonText}>{text}</Text>
             </Pressable>
         </View>
-    )
+    );
 }
 
 
