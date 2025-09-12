@@ -7,17 +7,12 @@ import { Image, Platform, StyleSheet, Text } from "react-native";
 import { Controller } from "react-hook-form";
 
 const imageMap = {
-    'email.png': require('../assets/images/email.png'),
-    'password.png': require('../assets/images/eye.png'),
-    'user.png': require('../assets/images/user.png'),
     'calendar.png': require('../assets/images/calendar.png'),
-    'phone.png': require('../assets/images/telefono.png'),
     'gender.png': require('../assets/images/gender.png'),
-    'code.png': require('../assets/images/OTP.png'),
 };
 
 
-export default function FormInput({ type, label, control, rules, error, icon }) {
+export default function FormInputSmall({ type, label, control, rules, error, icon }) {
     return (
         <View style={[styles.Input, error && styles.inputError]}>
             <Image
@@ -51,7 +46,7 @@ export default function FormInput({ type, label, control, rules, error, icon }) 
 
 const styles = StyleSheet.create({
     Input: {
-        width: Platform.OS === "ios" ? 350 : 330,
+        width: Platform.OS === "ios" ? 158 : 150,
         height: 45,
         backgroundColor: "#D9D9D9",
         borderRadius: 6,
@@ -91,9 +86,8 @@ const styles = StyleSheet.create({
 
     textInput: {
         flex: 1,
-        fontSize: 15,
+        fontSize: Platform.OS === "ios" ? 15 : 13,
         fontFamily: "InterRegular",
         color: "#000",
     },
-
 });

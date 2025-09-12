@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-urbispay-dev-4cf8a-authRole",
+      "UnauthRoleArn": "arn:aws:iam::024937407288:role/amplify-urbispay-dev-4cf8a-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::024937407288:role/amplify-urbispay-dev-4cf8a-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-urbispay-dev-4cf8a-deployment",
+      "UnauthRoleName": "amplify-urbispay-dev-4cf8a-unauthRole",
+      "StackName": "amplify-urbispay-dev-4cf8a",
+      "StackId": "arn:aws:cloudformation:us-east-2:024937407288:stack/amplify-urbispay-dev-4cf8a/dec83970-8b4a-11f0-9ccd-0639c5f091f9",
+      "AmplifyAppId": "d8vp41posmnqg"
+    },
+    "categories": {
+      "auth": {
+        "UrbisPay": {}
+      }
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 
-export default function ButtonLarge({ text, onPress }) {
+export default function ButtonLarge({ text, onPress, type = 'primary' }) {
     return (
         <View>
             <Pressable
-                style={styles.button}
+                style={type === 'secondary' ? styles.buttonSecondary : styles.button}
                 onPress={() => {
                     console.log("Button pressed");
                     onPress();
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         marginLeft: 40,
+        marginBottom: 10,
     },
 
     buttonText: {
@@ -35,5 +36,16 @@ const styles = StyleSheet.create({
         fontFamily: 'MavenProMedium',
         fontSize: 15,
         textAlign: 'center',
+    },
+
+    buttonSecondary: {
+        width: Platform.OS === 'ios' ? 320 : 300,
+        height: 45,
+        backgroundColor: '#7A7777',
+        borderRadius: 6,
+        display: 'flex',
+        justifyContent: 'center',
+        marginLeft: 40,
+        marginBottom: 10,
     },
 });

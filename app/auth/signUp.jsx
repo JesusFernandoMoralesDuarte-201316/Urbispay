@@ -1,23 +1,22 @@
 import { useRouter } from 'expo-router';
-import { Image, Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useForm } from 'react-hook-form';
+import { Image, Platform, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import "../../global.css";
 
 import { useEffect, useState } from 'react';
+import ButtonLarge from '../../components/ButtonLarge';
+import FormInput from '../../components/FormInput';
+import FormInputSmall from '../../components/FormInputSmall';
 import LinkPages from '../../components/LinkPages';
 import ProgressStep from '../../components/ProgressStep';
-
 
 const steps = ["Personal", "Security", "OTP", "Done"];
 
 export default function SignUp() {
+  const { control, handleSubmit, formState: { errors }, getValues } = useForm();
 
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
-
-  // Estado de los formularios
-
-  const [nombre, setNombre] = useState("");
-  const [direccion, setDireccion] = useState("");
 
   const nextStep = () => {
     if (currentStep < steps.length - 1) setCurrentStep(currentStep + 1);
@@ -32,11 +31,12 @@ export default function SignUp() {
 
   }
 
-  useEffect(() => {
-    console.log('se renderizo screen SignUp');
+  useEffect(() => { setCurrentStep(0) }, []);
 
-    setCurrentStep(0); // o el step inicial que quieras
-  }, []);
+  const onSubmit = (data) => {
+    console.log("Datos enviados:", data);
+    nextStep(); // Avanza al siguiente paso si los datos son válidos
+  };
 
   return (
     <>
@@ -68,19 +68,96 @@ export default function SignUp() {
             {currentStep === 0 && (
               <>
                 <View className='flex items-center mx-4 space-y-4'>
-                  {/* <FormInput type='Text' textInit='Full Name' />
-                  <FormInput type='Email' textInit='Email' />
-                  <FormInput type='Number' textInit='Birthday Year' /> */}
-                </View>
 
+                  <FormInput
+                    type='text'
+                    label='fullName'
+                    control={control}
+                    rules={{ required: 'El Nombre es requerido' }}
+                    error={errors.fullName?.message}
+                    icon='user.png'>
+                  </FormInput>
+
+                  <FormInput
+                    type='email'
+                    label='Email'
+                    control={control}
+                    rules={{ required: 'El Email es requerido' }}
+                    error={errors.Email?.message}
+                    icon='email.png'>
+                  </FormInput>
+
+                  <View style={styles.FormInputsSmall}>
+                    <FormInputSmall
+                      type='text'
+                      label='Gender'
+                      control={control}
+                      rules={{ required: 'El Género es requerido' }}
+                      error={errors.Gender?.message}
+                      icon='gender.png'>
+                    </FormInputSmall>
+                    <FormInputSmall
+                      type='number'
+                      label='Birthday'
+                      control={control}
+                      rules={{ required: 'El Año de Nacimiento es requerido' }}
+                      error={errors.Birthday?.message}
+                      icon='calendar.png'>
+                    </FormInputSmall>
+                  </View>
+                  <FormInput
+                    type='number'
+                    label='PhoneNumber'
+                    control={control}
+                    rules={{ required: 'El Número de Teléfono es requerido' }}
+                    error={errors.PhoneNumber?.message}
+                    icon='phone.png'>
+                  </FormInput>
+
+                  <ButtonLarge
+                    text='Siguiente'
+                    onPress={handleSubmit(onSubmit)}
+                  />
+                </View>
               </>
             )}
 
             {currentStep === 1 && (
               <>
                 <View className='flex items-center mx-4 space-y-4'>
-                  {/* <FormInput type='Password' textInit='Password' />
-                  <FormInput type='Password' textInit='ConfirmPassword' /> */}
+                  {/* Campo de contraseña */}
+                  <FormInput
+                    type='Password'
+                    label='Password'
+                    control={control}
+                    rules={{
+                      required: 'La Contraseña es requerida',
+                      minLength: {
+                        value: 8,
+                        message: 'La Contraseña debe tener al menos 8 caracteres',
+                      },
+                    }}
+                    error={errors.Password?.message}
+                    icon='password.png'
+                  />
+
+                  {/* Campo de confirmación de contraseña */}
+                  <FormInput
+                    type='Password'
+                    label='ConfirmPassword'
+                    control={control}
+                    rules={{
+                      required: 'La Confirmación de Contraseña es requerida',
+                      validate: (value) =>
+                        value === getValues('Password') || 'Las contraseñas no coinciden',
+                    }}
+                    error={errors.ConfirmPassword?.message}
+                    icon='password.png'
+                  />
+
+                  {/* Botones */}
+                  <ButtonLarge text='Siguiente' onPress={handleSubmit(onSubmit)} style={{ marginBottom: 20 }} />
+                  <ButtonLarge text='Volver' onPress={prevStep} type='secondary' />
                 </View>
 
               </>
@@ -89,43 +166,49 @@ export default function SignUp() {
             {currentStep === 2 && (
               <>
                 <View className='flex items-center mx-4 space-y-4'>
-                  {/* <Text>Ingresa el codigo que se envio a el correo</Text>
-                  <FormInput type='Number' textInit='Code' /> */}
+                  <Text style={styles.textOTP}>Ingresa el <Text style={{ color: '#046D3C' }}>código</Text> que fue enviado a: <Text style={{ color: '#046D3C' }}>correo@test.com</Text></Text>
+                  <FormInput
+                    type='number'
+                    label='Code'
+                    control={control}
+                    rules={{ required: 'El Código es requerido' }}
+                    error={errors.Code?.message}
+                    icon='code.png'
+                  />
+                  <Text style={styles.textOTPResend}>¿No recibiste el código? <Text style={{ color: '#2C8C64', fontFamily: 'InterBlack' }}>Reenviar código</Text></Text>
+                  <ButtonLarge
+                    text='Siguiente'
+                    onPress={handleSubmit(onSubmit)}
+                    style={{ marginBottom: 20 }}
+                  />
+                  <ButtonLarge
+                    text='Volver'
+                    onPress={prevStep}
+                    type='secondary' />
                 </View>
 
               </>
             )}
+
 
             {currentStep === 3 && (
               <>
                 <View className='flex items-center mx-4 space-y-4'>
-                  <Text>Registro Existoso</Text>
+                  <Text style={{ fontFamily: 'InterBold', fontSize: 30, textAlign: 'center', marginBottom: 15 }}>Felicidades</Text>
+                  <Text style={{ fontFamily: 'InterExtraBold', fontSize: 15, textAlign: 'center', color: '#046D3C' }}>Usuario creado con exito</Text>
+                  <Image
+                    source={require('../../assets/images/Felicidades.png')}
+                    style={{ width: 150, height: 150, alignSelf: 'center', marginTop: 35, marginBottom: 20 }}
+                  />
+
+                  <ButtonLarge
+                    text='Finalizar'
+                    onPress={backScreen}
+                  />
                 </View>
 
               </>
             )}
-
-
-
-            <View style={styles.buttons}>
-
-              <TouchableOpacity
-                onPress={currentStep === steps.length - 1 ? backScreen : nextStep}
-                style={[styles.btnPrimary]}
-              >
-                <Text style={styles.btnText}>
-                  {currentStep === steps.length - 1 ? "Finalizar" : "Siguiente"}
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={prevStep}
-                style={[styles.btnSecondary, currentStep === 0 && styles.btnDisabled, currentStep === steps.length - 1 ? { display: 'none' } : {}]}
-                disabled={currentStep === 0}
-              >
-                <Text style={[styles.btnText]}>Anterior</Text>
-              </TouchableOpacity>
-            </View>
 
 
           </View>
@@ -191,6 +274,12 @@ const styles = StyleSheet.create({
     marginLeft: 42,
   },
 
+  FormInputsSmall: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: 200,
+  },
+
   buttons: { marginTop: 10 },
 
   btnPrimary: {
@@ -226,6 +315,22 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
   },
+
+  textOTP: {
+    fontFamily: 'InterExtraBold',
+    fontSize: 15,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+
+  textOTPResend: {
+    fontFamily: 'InterRegular',
+    fontSize: 12,
+    color: '#2C8C64',
+    textAlign: 'center',
+  },
+
+
 
 
 });

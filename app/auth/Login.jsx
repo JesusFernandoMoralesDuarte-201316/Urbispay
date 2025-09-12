@@ -7,14 +7,29 @@ import ButtonSocialNetwork from '../../components/ButtonSocialNetwork';
 import FormInput from '../../components/FormInput';
 import LinkPages from '../../components/LinkPages';
 
+import { signIn } from 'aws-amplify/auth';
+
 export default function Login() {
   const { control, handleSubmit, formState: { errors }, getValues } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Form data:", data);
+
+
+
+  async function IsignIn({ Email: username, Password: password }) {
+    try {
+      const { isSignedIn, nextStep } = await signIn({ username, password });
+    } catch (error) {
+      console.log(`username:${username} password${password}`);
+
+      console.log('error signing in', error);
+    }
+  }
+
+  const onSubmit = ({ Email, Password }) => {
+    IsignIn(Email, Password)
   };
 
-  console.log("Current form values:", getValues());
+
 
   return (
     <>
@@ -29,7 +44,7 @@ export default function Login() {
             <View className="flex items-center mx-4 space-y-4">
               <FormInput type="Email" label="Email" control={control} rules={{ required: 'El Email es requerido' }} error={errors.Email?.message} icon='email.png' />
               <FormInput type="Password" label="Password" control={control} rules={{ required: 'El Password es requerido' }} error={errors.Password?.message} icon='password.png' />
-              <ButtonLarge text="Login" onPress={handleSubmit(onSubmit)} />
+              <ButtonLarge text="Login" onPress={handleSubmit(IsignIn)} />
             </View>
 
             {/* Forgot Password */}
