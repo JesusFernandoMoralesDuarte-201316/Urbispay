@@ -49,7 +49,7 @@ export default function Login() {
 
             {/* Forgot Password */}
             <View style={styles.forgotContainer}>
-              <LinkPages text="Forgot Password?" type="Bold" link="../signUp" />
+              <LinkPages text="Forgot Password?" type="Bold" link="../home/home" />
             </View>
 
             {/* Line OR */}

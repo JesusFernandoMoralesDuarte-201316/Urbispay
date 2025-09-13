@@ -10,7 +10,7 @@ export default function LinkPages({ text, type = 'Medium', link }) {
             <TouchableOpacity
                 onPress={() => router.push(link)}
             >
-                <Text style={type === 'Medium' ? styles.Medium : type === 'Bold' ? styles.Bold : null}>
+                <Text style={type === 'Medium' ? styles.Medium : type === 'Bold' ? styles.Bold : styles.ExtraBold}>
                     {text}
                 </Text>
             </TouchableOpacity>
@@ -30,6 +30,12 @@ const styles = StyleSheet.create({
         color: '#174834',
         fontWeight: 'bold',
     },
+
+    ExtraBold: {
+        fontSize: Platform.OS === 'ios' ? 13 : 12,
+        color: '#2C8C64',
+        fontFamily: 'InterExtraBold',
+    }
 });
 
 

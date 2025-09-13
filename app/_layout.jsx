@@ -16,7 +16,9 @@ SplashScreen.preventAutoHideAsync();
 const RootLayout = () => {
     const [loaded] = useFonts({
         MavenProExtraBold: require("../assets/fonts/MavenPro-ExtraBold.ttf"),
+        MavenProBold: require("../assets/fonts/MavenPro-Bold.ttf"),
         MavenProMedium: require("../assets/fonts/MavenPro-Medium.ttf"),
+        MavenProRegular: require("../assets/fonts/MavenPro-Regular.ttf"),
         InterRegular: require("../assets/fonts/Inter_18pt-Regular.ttf"),
         InterMedium: require("../assets/fonts/Inter_18pt-Medium.ttf"),
         InterExtraBold: require("../assets/fonts/Inter_18pt-ExtraBold.ttf"),
