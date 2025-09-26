@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form';
 import { Image, Platform, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import "../../global.css";
 
+import { confirmSignUp, signUp } from 'aws-amplify/auth';
+
+
 import { useEffect, useState } from 'react';
 import ButtonLarge from '../../components/ButtonLarge';
 import FormInput from '../../components/FormInput';
@@ -36,6 +39,38 @@ export default function SignUp() {
   const onSubmit = (data) => {
     console.log("Datos enviados:", data);
     nextStep(); // Avanza al siguiente paso si los datos son válidos
+  };
+
+  async function handleSignUpConfirmation(data) {
+    try {
+      await confirmSignUp({
+        username: data.Email,
+        confirmationCode: data.Code
+      });
+
+      alert("Usuario confirmado:", data.Email);
+      nextStep();
+
+    } catch (error) {
+      alert('error confirming sign up', error);
+    }
+  }
+
+
+  const handlerSignUp = async (data) => {
+    try {
+      await signUp({
+        username: data.Email,
+        password: data.Password,
+        attributes: {
+          email: data.Email,
+        },
+      });
+      alert("Usuario registrado. Revisa tu correo para confirmar.");
+      nextStep();
+    } catch (err) {
+      alert("Error en signup: " + err.message);
+    }
   };
 
   return (
@@ -136,6 +171,11 @@ export default function SignUp() {
                         value: 8,
                         message: 'La Contraseña debe tener al menos 8 caracteres',
                       },
+                      pattern: {
+                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&._-])[A-Za-z\d@$!%*?&._-]+$/,
+                        message:
+                          'La Contraseña debe incluir mayúsculas, minúsculas, números y símbolos',
+                      },
                     }}
                     error={errors.Password?.message}
                     icon='password.png'
@@ -156,7 +196,7 @@ export default function SignUp() {
                   />
 
                   {/* Botones */}
-                  <ButtonLarge text='Siguiente' onPress={handleSubmit(onSubmit)} style={{ marginBottom: 20 }} />
+                  <ButtonLarge text='Siguiente' onPress={handleSubmit(handlerSignUp)} style={{ marginBottom: 20 }} />
                   <ButtonLarge text='Volver' onPress={prevStep} type='secondary' />
                 </View>
 
@@ -178,7 +218,7 @@ export default function SignUp() {
                   <Text style={styles.textOTPResend}>¿No recibiste el código? <Text style={{ color: '#2C8C64', fontFamily: 'InterBlack' }}>Reenviar código</Text></Text>
                   <ButtonLarge
                     text='Siguiente'
-                    onPress={handleSubmit(onSubmit)}
+                    onPress={handleSubmit(handleSignUpConfirmation)}
                     style={{ marginBottom: 20 }}
                   />
                   <ButtonLarge

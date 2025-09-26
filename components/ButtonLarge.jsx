@@ -7,7 +7,6 @@ export default function ButtonLarge({ text, onPress, type = 'primary' }) {
             <Pressable
                 style={type === 'secondary' ? styles.buttonSecondary : styles.button}
                 onPress={() => {
-                    console.log("Button pressed");
                     onPress();
                 }}
             >

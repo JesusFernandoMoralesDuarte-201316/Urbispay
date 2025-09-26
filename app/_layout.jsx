@@ -3,12 +3,18 @@ import { Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { View } from "react-native";
+import 'react-native-get-random-values';
 
 import { Amplify } from "aws-amplify";
-import awsconfig from "../src/aws-exports";
+import awsconfig from "../src/amplifyconfiguration.json";
+
 
 // Configuración de Amplify
-Amplify.configure(awsconfig, { Logging: "DEBUG" });
+Amplify.configure({
+    ...awsconfig,
+    Analytics: { disabled: true }, // importante si no usas Analytics
+    ssr: false
+});
 
 // Evita que el splash se oculte automáticamente
 SplashScreen.preventAutoHideAsync();
@@ -46,3 +52,4 @@ const RootLayout = () => {
 };
 
 export default RootLayout;
+

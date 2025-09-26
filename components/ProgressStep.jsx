@@ -1,14 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 
 
-// Componente del step individual
-export default function ProgressStep({
-    number,
-    label,
-    isActive,
-    isCompleted,
-    showLine = true,
-}) {
+export default function ProgressStep({ number, label, isActive, isCompleted, showLine = true }) {
     return (
         <View style={{ flex: 1 }}>
             {/* Círculo y línea en fila */}

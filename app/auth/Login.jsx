@@ -1,32 +1,36 @@
-import { Image, Platform, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Image, Platform, StyleSheet, Text, View } from 'react-native';
 import "../../global.css";
 
+import { signIn } from 'aws-amplify/auth';
+import { useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
 import ButtonLarge from '../../components/ButtonLarge';
-import ButtonSocialNetwork from '../../components/ButtonSocialNetwork';
 import FormInput from '../../components/FormInput';
 import LinkPages from '../../components/LinkPages';
-
-import { signIn } from 'aws-amplify/auth';
 
 export default function Login() {
   const { control, handleSubmit, formState: { errors }, getValues } = useForm();
 
+  const router = useRouter();
 
 
-
-  async function IsignIn({ Email: username, Password: password }) {
+  async function handlerSignIn(data) {
     try {
-      const { isSignedIn, nextStep } = await signIn({ username, password });
-    } catch (error) {
-      console.log(`username:${username} password${password}`);
+      await signIn({
+        username: data.Email,
+        password: data.Password
+      });
+      alert("Login exitoso");
+      router.push('../home/home');
 
-      console.log('error signing in', error);
+    } catch (error) {
+      console.log(error.message);
+      alert('Error en el login', error.message);
     }
   }
 
-  const onSubmit = ({ Email, Password }) => {
-    IsignIn(Email, Password)
+  const onSubmit = (data) => {
+    console.log("Datos enviados:", data);
   };
 
 
@@ -34,36 +38,24 @@ export default function Login() {
   return (
     <>
       <View className="bg-white h-full w-full">
-        <SafeAreaView>
-          <View className="h-full w-full">
-            <View className="flex items-center">
-              <Text style={styles.title}>UrbisPay</Text>
-            </View>
-
-            {/* Formulario con Input Email y Password */}
-            <View className="flex items-center mx-4 space-y-4">
-              <FormInput type="Email" label="Email" control={control} rules={{ required: 'El Email es requerido' }} error={errors.Email?.message} icon='email.png' />
-              <FormInput type="Password" label="Password" control={control} rules={{ required: 'El Password es requerido' }} error={errors.Password?.message} icon='password.png' />
-              <ButtonLarge text="Login" onPress={handleSubmit(IsignIn)} />
-            </View>
-
-            {/* Forgot Password */}
-            <View style={styles.forgotContainer}>
-              <LinkPages text="Forgot Password?" type="Bold" link="../home/home" />
-            </View>
-
-            {/* Line OR */}
-            <View style={styles.containerOr}>
-              <View style={styles.lineIzq} />
-              <Text style={styles.textOr}>or</Text>
-              <View style={styles.lineDer} />
-            </View>
-
-            {/* Button Social Networks */}
-            <ButtonSocialNetwork text="Continue with Google" imageName="google.png" />
-            <ButtonSocialNetwork text="Continue with Facebook" imageName="facebook.png" />
+        <View className="h-full w-full">
+          <View className="flex items-center">
+            <Text style={styles.title}>UrbisPay</Text>
           </View>
-        </SafeAreaView>
+
+          {/* Formulario con Input Email y Password */}
+          <View className="flex items-center mx-4 space-y-4">
+            <FormInput type="Email" label="Email" control={control} rules={{ required: 'El Email es requerido' }} error={errors.Email?.message} icon='email.png' />
+            <FormInput type="Password" label="Password" control={control} rules={{ required: 'El Password es requerido' }} error={errors.Password?.message} icon='password.png' />
+            <ButtonLarge text="Login" onPress={handleSubmit(handlerSignIn)} />
+          </View>
+
+          {/* Forgot Password */}
+          <View style={styles.forgotContainer}>
+            <LinkPages text="Forgot Password?" type="Bold" link="../home/home" />
+          </View>
+
+        </View>
       </View>
       <View style={styles.containerWave}>
         <Image
@@ -86,7 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: "MavenProExtraBold",
     color: "#2C8C64",
-    marginTop: Platform.OS === "ios" ? 50 : 70,
+    marginTop: 170,
     marginLeft: 115,
     marginBottom: 40,
   },

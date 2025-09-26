@@ -1,15 +1,15 @@
-import { Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Image, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import LinkPages from '../../components/LinkPages';
+import Navbar from '../../components/navbar';
 
 const Home = () => {
+    const router = useRouter();
+
     return (
         <View style={styles.container}>
-            <View style={styles.navbar}>
-                <Image source={require('../../assets/images/avatar.jpg')} style={styles.avatar} />
-                <Text style={styles.username}>Hola Fernando Morales</Text>
-                <Text style={styles.subtitle}>Bienvenido, comencemos con los pagos</Text>
-                <Image source={require('../../assets/images/notificacion.png')} style={styles.notificationIcon} />
-            </View>
+
+            <Navbar />
 
             <View style={styles.quickAccess}>
                 <View style={{ width: 40, height: 64, justifyContent: 'center', alignItems: 'center' }}>
@@ -97,27 +97,6 @@ const Home = () => {
                 </View>
             </View>
 
-
-            <View style={styles.footer}>
-                <View style={{ width: 40, height: 50, justifyContent: 'center', alignItems: 'center' }}>
-                    <Image source={require('../../assets/images/home_selected.png')} style={{ width: 25, height: 25 }} />
-                    <Text style={{ fontSize: 12, color: '#000', marginTop: 6 }}>Home</Text>
-                </View>
-                <View style={{ width: 42, height: 50, justifyContent: 'center', alignItems: 'center' }}>
-                    <Image source={require('../../assets/images/file.png')} style={{ width: 25, height: 25 }} />
-                    <Text style={{ fontSize: 12, color: '#000', marginTop: 6 }}>History</Text>
-                </View>
-                <View style={{ width: 40, height: 50, justifyContent: 'center', alignItems: 'center' }}>
-                    <Image source={require('../../assets/images/credit-card.png')} style={{ width: 25, height: 25 }} />
-                    <Text style={{ fontSize: 12, color: '#000', marginTop: 6 }}>Card</Text>
-                </View>
-                <View style={{ width: 40, height: 50, justifyContent: 'center', alignItems: 'center' }}>
-                    <Image source={require('../../assets/images/profile-user.png')} style={{ width: 25, height: 25 }} />
-                    <Text style={{ fontSize: 12, color: '#000', marginTop: 6 }}>Profile</Text>
-                </View>
-            </View>
-
-
             <Text style={[styles.servicesTitle, { position: 'absolute', bottom: Platform.OS === 'android' ? 260 : 270, left: 20 }]}>Servicios Mas Populares</Text>
 
             <View style={{ position: 'absolute', bottom: Platform.OS === 'android' ? 260 : 270, right: 30 }}>
@@ -156,6 +135,33 @@ const Home = () => {
                 </ScrollView>
             </View>
 
+            <View style={styles.footer}>
+                <View style={{ width: 40, height: 50, justifyContent: 'center', alignItems: 'center' }}>
+                    <Image source={require('../../assets/images/home_selected.png')} style={{ width: 25, height: 25 }} />
+                    <Text style={{ fontSize: 12, color: '#000', marginTop: 6 }}>Home</Text>
+                </View>
+                <View style={{ width: 42, height: 50, justifyContent: 'center', alignItems: 'center' }}>
+                    <Pressable onPress={() => router.push('./history')}>
+                        <Image source={require('../../assets/images/file.png')} style={{ width: 25, height: 25 }} />
+                    </Pressable>
+                    <Text style={{ fontSize: 12, color: '#000', marginTop: 6 }}>History</Text>
+                </View>
+                <View style={{ width: 40, height: 50, justifyContent: 'center', alignItems: 'center' }}>
+                    <Pressable onPress={() => console.log('Pressed Card!')}>
+                        <Image source={require('../../assets/images/credit-card.png')} style={{ width: 25, height: 25 }} />
+                    </Pressable>
+                    <Text style={{ fontSize: 12, color: '#000', marginTop: 6 }}>Card</Text>
+                </View>
+                <View style={{ width: 40, height: 50, justifyContent: 'center', alignItems: 'center' }}>
+                    <Pressable onPress={() => console.log('Pressed Profile!')}>
+                        <Image source={require('../../assets/images/profile-user.png')} style={{ width: 25, height: 25 }} />
+                    </Pressable>
+
+                    <Text style={{ fontSize: 12, color: '#000', marginTop: 6 }}>Profile</Text>
+                </View>
+            </View>
+
+
         </View>
     );
 };
@@ -167,53 +173,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         position: 'relative',
-    },
-
-    navbar: {
-        position: 'absolute',
-        height: 100,
-        top: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: '#2C8C64',
-    },
-
-    username: {
-        position: 'absolute',
-        top: Platform.OS === 'android' ? 50 : 55,
-        left: 67,
-        fontFamily: 'MavenProExtraBold',
-        fontSize: 12,
-        color: '#fff',
-    },
-
-    subtitle: {
-        position: 'absolute',
-        top: Platform.OS === 'android' ? 65 : 70,
-        left: 67,
-        fontFamily: 'MavenProMedium',
-        fontSize: 12,
-        color: '#fff',
-    },
-
-    notificationIcon: {
-        position: 'absolute',
-        top: 60,
-        right: 20,
-        width: 20,
-        height: 20
-    },
-
-    avatar: {
-        position: 'absolute',
-        top: 50,
-        left: 20,
-        width: 40,
-        height: 40,
-        borderRadius: 30,
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 
     title: {
